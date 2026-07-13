@@ -3,7 +3,7 @@ import { DATASET_VERSION, DATASET_UPDATED } from "@/data/comparisons"
 const NAV = [
   { label: "Home", href: "/index.html" },
   { label: "Commitments", href: "/commitments.html" },
-  { label: "Programs", href: "/programs.html" },
+  { label: "Programs", href: "/programs" },
   { label: "Publications", href: "/publications.html" },
   { label: "Methodology", href: "/methodology.html" },
   { label: "Governance", href: "/governance.html" },
