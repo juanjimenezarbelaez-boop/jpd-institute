@@ -1,14 +1,12 @@
-const SITE = "https://institute-for-jpd.org"
-
 const NAV = [
-  { label: "Home", href: `${SITE}/index.html` },
-  { label: "Commitments", href: `${SITE}/commitments.html` },
-  { label: "Programs", href: `${SITE}/programs.html` },
-  { label: "Publications", href: `${SITE}/publications.html` },
-  { label: "Methodology", href: `${SITE}/methodology.html` },
-  { label: "Governance", href: `${SITE}/governance.html` },
-  { label: "About", href: `${SITE}/about.html` },
-  { label: "Contact", href: `${SITE}/contact.html` },
+  { label: "Home", href: "/index.html" },
+  { label: "Commitments", href: "/commitments.html" },
+  { label: "Programs", href: "/programs.html" },
+  { label: "Publications", href: "/publications.html" },
+  { label: "Methodology", href: "/methodology.html" },
+  { label: "Governance", href: "/governance.html" },
+  { label: "About", href: "/about.html" },
+  { label: "Contact", href: "/contact.html" },
 ]
 
 export function SiteHeader() {
@@ -24,7 +22,7 @@ export function SiteHeader() {
       <header className="no-print sticky top-0 z-50 border-b border-rule bg-paper">
         <div className="mx-auto flex max-w-[1120px] items-center justify-between gap-6 px-6 py-4">
           <a
-            href={`${SITE}/index.html`}
+            href="/index.html"
             className="flex items-center gap-3.5 text-ink hover:no-underline"
             aria-label="Institute home"
           >
