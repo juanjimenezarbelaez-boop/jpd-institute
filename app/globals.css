@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ink: #1b2436;
+  --color-paper: #fbfaf7;
+  --color-buckram: #27436b;
+  --color-buckram-deep: #1c3252;
+  --color-gilt: #a8853b;
+  --color-slate: #5b6472;
+  --color-vellum: #f1eee6;
+  --color-rule: #d8d3c6;
+  --color-ink-soft: #333c4d;
+  --color-ink-muted: #3a4354;
+
+  --font-serif: var(--font-libre-caslon), Georgia, serif;
+  --font-sans: var(--font-public-sans), -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-paper);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background-color: var(--color-paper);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-gilt);
+    outline-offset: 2px;
+  }
+}
+
+/* Overline / small-caps label */
+.overline {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gilt);
+}
+
+.cite {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--color-slate);
+}
+
+/* Print styles — the reviewer works on paper */
+@media print {
+  @page {
+    margin: 1.6cm;
+  }
+  html,
+  body {
+    background: #fff !important;
+    font-size: 11pt;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-block {
+    break-inside: avoid;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-family: var(--font-mono);
+    font-size: 8pt;
+    color: #333;
+    word-break: break-all;
+  }
+  .print-open {
+    display: block !important;
+  }
+  details {
+    break-inside: avoid;
+  }
+}
