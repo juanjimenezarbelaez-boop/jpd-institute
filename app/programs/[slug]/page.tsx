@@ -5,10 +5,11 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { PROGRAMS, getProgram } from "@/data/programs"
 
+const DEDICATED_ROUTES = ["comparative-jurisprudence-lab", "open-governance-frameworks"]
+
 export function generateStaticParams() {
-  // The Lab has a dedicated static route at
-  // app/programs/comparative-jurisprudence-lab/page.tsx.
-  return PROGRAMS.filter((p) => p.slug !== "comparative-jurisprudence-lab").map((p) => ({
+  // Programs I and II have dedicated static routes under app/programs/.
+  return PROGRAMS.filter((p) => !DEDICATED_ROUTES.includes(p.slug)).map((p) => ({
     slug: p.slug,
   }))
 }
