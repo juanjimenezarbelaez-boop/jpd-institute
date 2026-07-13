@@ -1,7 +1,7 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useState } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useRouter } from "next/navigation"
 import { Printer } from "lucide-react"
 import {
   SEED_CASES,
@@ -13,7 +13,8 @@ import { SystemSelector } from "@/components/system-selector"
 import { ComparisonOutput } from "@/components/comparison-output"
 import { MethodologyNote } from "@/components/methodology-note"
 
-const VALID_SYSTEMS: HumanRightsSystem[] = ["inter-american", "european", "african", "universal"]
+const BASE_PATH = "/programs/comparative-jurisprudence-lab"
+
 const SYSTEM_ORDER: Record<HumanRightsSystem, number> = {
   "inter-american": 0,
   european: 1,
@@ -21,26 +22,21 @@ const SYSTEM_ORDER: Record<HumanRightsSystem, number> = {
   universal: 3,
 }
 
-function parseSystems(raw: string | null): HumanRightsSystem[] {
-  if (!raw) return []
-  return raw
-    .split(",")
-    .map((s) => s.trim())
-    .filter((s): s is HumanRightsSystem => VALID_SYSTEMS.includes(s as HumanRightsSystem))
-}
-
-export function Lab() {
+export function Lab({
+  initialCaseId = null,
+  initialSystems = [],
+}: {
+  initialCaseId?: string | null
+  initialSystems?: HumanRightsSystem[]
+}) {
   const router = useRouter()
-  const searchParams = useSearchParams()
-
-  const caseParam = searchParams.get("case")
-  const systemsParam = searchParams.get("systems")
 
   const [caseId, setCaseId] = useState<string | null>(
-    getCaseById(caseParam) ? caseParam : null,
+    getCaseById(initialCaseId) ? initialCaseId : null,
   )
-  const [systems, setSystems] = useState<HumanRightsSystem[]>(parseSystems(systemsParam))
+  const [systems, setSystems] = useState<HumanRightsSystem[]>(initialSystems)
   const [loading, setLoading] = useState(false)
+  const mounted = useRef(false)
 
   // Keep the URL in sync so any comparison is directly linkable / printable.
   const syncUrl = useCallback(
@@ -52,13 +48,19 @@ export function Lab() {
         params.set("systems", ordered.join(","))
       }
       const qs = params.toString()
-      router.replace(qs ? `/lab?${qs}` : "/lab", { scroll: false })
+      router.replace(qs ? `${BASE_PATH}?${qs}` : BASE_PATH, { scroll: false })
     },
     [router],
   )
 
-  // Brief skeleton state on selection change so output never appears to "pop" without feedback.
+  // Brief skeleton state on selection change so output never appears to "pop"
+  // without feedback. Skipped on first mount so the server-rendered default
+  // comparison is never replaced by a skeleton flash.
   useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true
+      return
+    }
     if (!caseId) return
     setLoading(true)
     const t = setTimeout(() => setLoading(false), 280)
@@ -71,13 +73,13 @@ export function Lab() {
   }
 
   function handleToggleSystem(system: HumanRightsSystem) {
-    setSystems((prev) => {
-      const next = prev.includes(system)
-        ? prev.filter((s) => s !== system)
-        : [...prev, system]
-      syncUrl(caseId, next)
-      return next
-    })
+    // Compute the next selection outside the state updater: calling
+    // router.replace inside an updater triggers a Router update during render.
+    const next = systems.includes(system)
+      ? systems.filter((s) => s !== system)
+      : [...systems, system]
+    setSystems(next)
+    syncUrl(caseId, next)
   }
 
   const seedCase = useMemo(() => getCaseById(caseId), [caseId])

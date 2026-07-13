@@ -6,6 +6,10 @@ const nextConfig = {
       // (#jurisprudence, #policy, #data) are preserved by the browser and
       // mapped to the dedicated program pages client-side on /programs.
       { source: "/programs.html", destination: "/programs", permanent: true },
+      // The Lab now lives at its program page. Permanent redirect so printed
+      // QR codes pointing at /lab (including ?case=…&systems=… deep links,
+      // whose query strings are preserved) keep working.
+      { source: "/lab", destination: "/programs/comparative-jurisprudence-lab", permanent: true },
     ]
   },
   async rewrites() {

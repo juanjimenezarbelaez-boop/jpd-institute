@@ -6,7 +6,11 @@ import { SiteFooter } from "@/components/site-footer"
 import { PROGRAMS, getProgram } from "@/data/programs"
 
 export function generateStaticParams() {
-  return PROGRAMS.map((p) => ({ slug: p.slug }))
+  // The Lab has a dedicated static route at
+  // app/programs/comparative-jurisprudence-lab/page.tsx.
+  return PROGRAMS.filter((p) => p.slug !== "comparative-jurisprudence-lab").map((p) => ({
+    slug: p.slug,
+  }))
 }
 
 export async function generateMetadata({

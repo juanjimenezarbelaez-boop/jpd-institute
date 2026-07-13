@@ -13,7 +13,6 @@ const PROGRAMS_MENU = [
   { label: "I · Comparative Jurisprudence Lab", href: "/programs/comparative-jurisprudence-lab" },
   { label: "II · Open Governance Frameworks", href: "/programs/open-governance-frameworks" },
   { label: "III · Religious-Freedom Risk Monitor", href: "/programs/religious-freedom-risk-monitor" },
-  { label: "Public Pilot — the Lab", href: "/lab" },
 ]
 
 const NAV_AFTER = [

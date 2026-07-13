@@ -1,9 +1,17 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
-import { ChevronsUpDown, Check, Search } from "lucide-react"
+import { ChevronsUpDown, Check, Search, ExternalLink } from "lucide-react"
 import { SEED_CASES, type SeedCase } from "@/data/comparisons"
 import { cn } from "@/lib/utils"
+
+interface LiveResult {
+  name: string
+  citation: string | null
+  court: string | null
+  dateFiled: string | null
+  url: string
+}
 
 export function CaseCombobox({
   value,
@@ -15,6 +23,7 @@ export function CaseCombobox({
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState("")
   const [activeIndex, setActiveIndex] = useState(0)
+  const [liveResults, setLiveResults] = useState<LiveResult[]>([])
   const rootRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -30,6 +39,34 @@ export function CaseCombobox({
 
   useEffect(() => {
     setActiveIndex(0)
+  }, [query])
+
+  // Debounced live search against /api/us-case (Free Law Project /
+  // CourtListener). Fails silently: on any error or empty configuration the
+  // section simply does not render and the local dataset remains authoritative.
+  useEffect(() => {
+    const q = query.trim()
+    if (q.length < 3) {
+      setLiveResults([])
+      return
+    }
+    const controller = new AbortController()
+    const t = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/us-case?q=${encodeURIComponent(q)}`, {
+          signal: controller.signal,
+        })
+        if (!res.ok) return
+        const data = (await res.json()) as { ok: boolean; results: LiveResult[] }
+        setLiveResults(data.ok ? data.results : [])
+      } catch {
+        // Silent fallback to the local dataset.
+      }
+    }, 350)
+    return () => {
+      controller.abort()
+      clearTimeout(t)
+    }
   }, [query])
 
   useEffect(() => {
@@ -160,6 +197,42 @@ export function CaseCombobox({
               )
             })}
           </ul>
+
+          {liveResults.length > 0 && (
+            <div className="border-t-[1.5px] border-ink">
+              <p className="border-b border-rule bg-vellum px-4 py-2 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-slate">
+                Live search · Free Law Project / CourtListener
+              </p>
+              <ul aria-label="Live search results from CourtListener">
+                {liveResults.map((r) => (
+                  <li key={r.url}>
+                    <a
+                      href={r.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex w-full items-start gap-3 border-b border-rule px-4 py-3 text-left last:border-b-0 hover:bg-vellum"
+                    >
+                      <ExternalLink className="mt-1 h-3.5 w-3.5 flex-none text-slate" aria-hidden="true" />
+                      <span className="min-w-0">
+                        <span className="block font-serif text-[0.95rem] font-bold leading-snug text-ink">
+                          {r.name}
+                        </span>
+                        <span className="cite mt-0.5 block">
+                          {[r.citation, r.court, r.dateFiled?.slice(0, 4)]
+                            .filter(Boolean)
+                            .join(" · ") || "CourtListener record"}
+                        </span>
+                        <span className="mt-1 block text-[0.78rem] text-slate">
+                          Opens the official record on courtlistener.com — not yet part of the
+                          comparative corpus.
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
     </div>
