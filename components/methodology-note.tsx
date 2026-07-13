@@ -1,7 +1,5 @@
 import { DATASET_VERSION, DATASET_UPDATED } from "@/data/comparisons"
 
-const SITE = "https://institute-for-jpd.org"
-
 export function MethodologyNote() {
   return (
     <details className="group rounded-[2px] border border-rule bg-white print-open">
@@ -24,7 +22,7 @@ export function MethodologyNote() {
         <ul className="flex list-none flex-col gap-2.5">
           <li className="border-l-2 border-rule pl-3">
             Comparisons are drafted by the Institute under its published{" "}
-            <a href={`${SITE}/methodology.html`} className="text-buckram underline">
+            <a href="/methodology.html" className="text-buckram underline">
               Documentation Standards
             </a>
             . Sourcing, verification, citation, and abstention protocols are public and replicable.
