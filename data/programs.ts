@@ -85,7 +85,6 @@ export const PROGRAMS: Program[] = [
       },
     ],
     note: "Precedent shows instruments of this class achieve national adoption: federal religious-expression guidance certified annually by every school district; model codes drafted by nonprofit institutions and enacted by state legislatures; voluntary open frameworks adopted across sectors without any mandate.",
-    publicationStatus: "Publication calendar 2026",
   },
   {
     slug: "religious-freedom-risk-monitor",

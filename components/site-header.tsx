@@ -11,7 +11,7 @@ const NAV_BEFORE = [
 const PROGRAMS_MENU = [
   { label: "Programs overview", href: "/programs" },
   { label: "I · Comparative Jurisprudence Lab", href: "/programs/comparative-jurisprudence-lab" },
-  { label: "II · Open Governance Frameworks", href: "/programs/open-governance-frameworks" },
+  { label: "II · Open Governance Frameworks — Public pilot", href: "/programs/open-governance-frameworks" },
   { label: "III · Religious-Freedom Risk Monitor", href: "/programs/religious-freedom-risk-monitor" },
 ]
 
