@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { InstitutionNavigator } from "@/components/frameworks/institution-navigator"
 import { FrameworkSource } from "@/components/frameworks/framework-source"
 import { PrintButton } from "@/components/frameworks/print-button"
+import { AdoptionRegistryForm } from "@/components/frameworks/adoption-registry-form"
 import {
   MANDATES,
   PROTOCOL_STEPS,
@@ -235,6 +236,29 @@ export default async function GovernanceFrameworksPage({
                 Exposure draft for public comment. Not legal advice. Final Module A releases Q1 2027
                 under CC BY 4.0.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 4b. Adoption Registry (optional) */}
+        <section className="border-b border-rule bg-vellum" aria-labelledby="registry-heading">
+          <div className="mx-auto max-w-[1120px] px-6 py-12">
+            <div className="mb-3">
+              <span className="font-mono text-[0.72rem] font-semibold tracking-[0.14em] text-gilt">
+                MEASURED IMPLEMENTATION
+              </span>
+            </div>
+            <h2 id="registry-heading" className="font-serif text-[1.4rem] font-bold text-ink">
+              Adoption Registry (optional)
+            </h2>
+            <p className="mt-3 max-w-[68ch] text-pretty text-[0.98rem] leading-relaxed text-ink-soft">
+              Registration is never required. Every instrument on this site is free, identical, and
+              openly licensed for every user. Institutions that choose to register their adoption
+              receive a semiannual implementation survey; responses shape each numbered revision,
+              and every resulting change is recorded in the public change log.
+            </p>
+            <div className="mt-7">
+              <AdoptionRegistryForm />
             </div>
           </div>
         </section>
