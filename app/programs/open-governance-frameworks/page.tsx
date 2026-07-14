@@ -7,6 +7,7 @@ import { InstitutionNavigator } from "@/components/frameworks/institution-naviga
 import { FrameworkSource } from "@/components/frameworks/framework-source"
 import { PrintButton } from "@/components/frameworks/print-button"
 import { AdoptionRegistryForm } from "@/components/frameworks/adoption-registry-form"
+import { EducationInterestForm } from "@/components/frameworks/education-interest-form"
 import {
   MANDATES,
   PROTOCOL_STEPS,
@@ -332,6 +333,93 @@ export default async function GovernanceFrameworksPage({
               </table>
             </div>
             <p className="cite mt-4">This log is append-only. Entries are never deleted.</p>
+          </div>
+        </section>
+
+        {/* 7. Open-Access Policy Education Platform */}
+        <section className="border-b border-rule" aria-labelledby="education-platform-heading">
+          <div className="mx-auto max-w-[1120px] px-6 py-12">
+            <h2
+              id="education-platform-heading"
+              className="font-serif text-[1.4rem] font-bold text-ink"
+            >
+              Open-Access Policy Education Platform
+            </h2>
+
+            {/* A. Status chip */}
+            <ul className="mt-4 flex flex-wrap gap-2">
+              <li className="rounded-[2px] border border-rule bg-white px-3 py-1 font-mono text-[0.72rem] uppercase tracking-[0.08em] text-slate">
+                In Development — First training modules launch Q4 2027
+              </li>
+            </ul>
+
+            {/* B. Body copy */}
+            <p className="mt-6 max-w-[76ch] text-pretty text-[0.98rem] leading-relaxed text-ink-soft">
+              Alongside its written instruments, Program II will deliver free, open-registration
+              training on public policy and religious-freedom governance, with priority curricula
+              addressing post-Groff religious-accommodation obligations for small employers and
+              under-resourced public institutions. Distinct from the program&apos;s policy
+              instruments, these training modules are educational programming — general content, not
+              individualized legal advice.
+            </p>
+            <p className="mt-4 max-w-[76ch] text-pretty text-[0.98rem] leading-relaxed text-ink-soft">
+              The in-person component replicates the operating model of the International Religious
+              Freedom Roundtable — in which the Institute&apos;s Founding Director serves as Co-Chair
+              of the Latin America Working Group — relying on donation funding and in-kind venue
+              contributions from partner universities and civic institutions rather than facility
+              expenditures. Performance will be reported annually through verifiable indicators —
+              registrations, module completions, and material downloads — consistent with the BBB
+              Wise Giving Alliance Standards for Charity Accountability.
+            </p>
+
+            {/* C. Two-milestone roadmap */}
+            <ol className="mt-8 max-w-[76ch] space-y-0">
+              {[
+                {
+                  label: "Q1–Q3 2027",
+                  detail:
+                    "Volunteer expert-faculty roster and venue partnerships enabling virtual and in-person education and dialogue spaces.",
+                },
+                {
+                  label: "Q4 2027",
+                  detail:
+                    "First pre-recorded training modules published as open educational resources (CC BY 4.0); first in-person sessions at partner venues.",
+                },
+              ].map((milestone, i, arr) => (
+                <li
+                  key={milestone.label}
+                  className={`relative flex gap-5 pb-7 ${
+                    i < arr.length - 1 ? "border-l-[1.5px] border-rule" : ""
+                  } ml-[0.95rem] pl-7`}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute -left-[0.95rem] top-0 grid h-[1.9rem] w-[1.9rem] flex-none place-items-center rounded-full border border-gilt bg-paper font-mono text-[0.78rem] font-semibold text-gilt"
+                  >
+                    {i + 1}
+                  </span>
+                  <div>
+                    <h3 className="font-serif text-[1.05rem] font-bold text-ink">
+                      {milestone.label}
+                    </h3>
+                    <p className="mt-1 text-[0.95rem] leading-relaxed text-ink-muted">
+                      {milestone.detail}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            {/* D. Interest form */}
+            <div className="mt-8">
+              <EducationInterestForm />
+            </div>
+
+            {/* E. Small-print closing line */}
+            <p className="cite mt-6 max-w-[76ch]">
+              All course materials will be released under a Creative Commons Attribution 4.0
+              International (CC BY 4.0) license.
+            </p>
           </div>
         </section>
 
