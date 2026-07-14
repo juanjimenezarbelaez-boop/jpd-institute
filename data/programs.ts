@@ -1,4 +1,9 @@
-export type ProgramStatus = "In development" | "Forthcoming" | "Phase II" | "Always open" | "Vol. 1 forthcoming"
+export type ProgramStatus =
+  | "In development"
+  | "Forthcoming"
+  | "Phase II"
+  | "Open access · v1 releases Q1 2027"
+  | "Vol. 1 forthcoming"
 
 export interface ProgramDeliverable {
   title: string
@@ -109,11 +114,11 @@ export const PROGRAMS: Program[] = [
         title: "Open Dataset & Methodology",
         detail:
           "persecution-exposure indicators, documentation standards, and replication files, released without charge to enforcement agencies, importers, investors, researchers, and journalists",
-        status: "Always open",
+        status: "Open access · v1 releases Q1 2027",
       },
     ],
     note: "The Monitor is also the Institute's earned-revenue instrument, on the established nonprofit publishing model: the open-access core is free; institutional subscribers receive the full analytical volumes at published, uniform rates. All revenue is reinvested in the Institute's programs.",
-    publicationStatus: "Publication calendar 2026",
+    publicationStatus: "Publication calendar · First releases 2027",
   },
 ]
 

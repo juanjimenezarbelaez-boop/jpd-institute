@@ -38,6 +38,15 @@ export default async function ProgramPage({
   if (!program) notFound()
 
   const isLab = program.slug === "comparative-jurisprudence-lab"
+  const isMonitor = program.slug === "religious-freedom-risk-monitor"
+
+  const publicationCalendar = [
+    { quarter: "Q1 2027", title: "Open Dataset & Methodology, v1", status: "Scheduled" },
+    { quarter: "Q2 2027", title: "Sector Exposure Brief 1 — Polysilicon/solar", status: "Scheduled" },
+    { quarter: "Q3 2027", title: "Sector Exposure Brief 2 — Apparel/cotton", status: "Scheduled" },
+    { quarter: "Q4 2027", title: "Annual Country Risk Volume 1 (PRC/XUAR)", status: "Scheduled" },
+    { quarter: "Q1 2028", title: "Methodology Curriculum", status: "Scheduled" },
+  ]
 
   return (
     <>
@@ -114,6 +123,71 @@ export default async function ProgramPage({
             </ul>
           </div>
         </section>
+
+        {/* Section A — Publication calendar (Program III only) */}
+        {isMonitor && (
+          <section className="border-b border-rule" aria-labelledby="publication-calendar-heading">
+            <div className="mx-auto max-w-[1120px] px-6 py-12">
+              <h2 id="publication-calendar-heading" className="overline">
+                Publication calendar
+              </h2>
+
+              {/* Horizontal timeline on desktop, vertical list on mobile / print */}
+              <ol className="mt-6 grid gap-px border border-rule bg-rule md:grid-cols-5">
+                {publicationCalendar.map((entry) => (
+                  <li key={entry.quarter} className="flex flex-col gap-3 bg-white p-6">
+                    <p className="font-mono text-[0.72rem] uppercase tracking-[0.08em] text-gilt">
+                      {entry.quarter}
+                    </p>
+                    <h3 className="font-serif text-[1.02rem] font-bold leading-snug text-ink">
+                      {entry.title}
+                    </h3>
+                    <span className="cite mt-auto w-fit whitespace-nowrap border border-rule bg-vellum px-2 py-0.5">
+                      {entry.status}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+
+              <p className="mt-6 max-w-[72ch] text-[0.98rem] leading-relaxed text-ink-soft">
+                Fixed calendar. Every release is identical for every reader.
+              </p>
+            </div>
+          </section>
+        )}
+
+        {/* Section B — Methodology Curriculum (Program III only) */}
+        {isMonitor && (
+          <section className="border-b border-rule" aria-labelledby="methodology-curriculum-heading">
+            <div className="mx-auto max-w-[1120px] px-6 py-12">
+              <h2 id="methodology-curriculum-heading" className="overline">
+                Methodology Curriculum
+              </h2>
+
+              <p className="cite mt-4 inline-block border border-rule bg-white px-3 py-1">
+                Launches Q1 2028
+              </p>
+
+              <p className="mt-6 max-w-[72ch] text-pretty text-[1.05rem] leading-relaxed text-ink-soft">
+                A free, open-registration curriculum of pre-recorded modules teaching non-specialist
+                readers — procurement and compliance officers, fiduciaries, agency staff,
+                researchers, and journalists — to apply the Monitor&apos;s open dataset and published
+                briefs. Delivered through the Institute&apos;s Open-Access Policy Education Platform
+                (Program II). Training is free and generates no revenue; every module is identical for
+                every learner.
+              </p>
+
+              <div className="mt-7">
+                <Link
+                  href="/programs/open-governance-frameworks#education-platform-heading"
+                  className="inline-block border border-buckram bg-buckram px-6 py-3 text-[0.95rem] font-semibold text-white transition-colors hover:bg-buckram-deep"
+                >
+                  Education Platform — receive updates <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Program note */}
         <section className="border-b border-rule bg-vellum">
